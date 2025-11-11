@@ -1,9 +1,12 @@
 'use client'
-
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import NavBar from '@/components/NavBar'
 
-const Page = () => {
+import Sidebar from '@/components/Sidebar'
+import RightSection from '@/components/RightSection'
+
+export default function Layout({children}) {
   const [user, setUser] = useState(null)
   const router = useRouter()
 
@@ -31,13 +34,20 @@ const Page = () => {
     )
   }
   return (
-      <div className="h-screen w-full bg-emerald-700
-     text-white text-5xl flex flex-col items-center
-     justify-center">
-      <h1>Welcome {user.email}</h1>
-       <button onClick={()=>handleLogout()} className="my-5 text-2xl cursor-pointer bg-black text-white p-2 rounded  transition">SignOut</button>
-    </div>
+    <>
+      <NavBar />
+      <div className="w-full flex ">
+        {/* sidebar */}
+         <Sidebar />
+        {/* end sidebar */}
+        {/* Main Content */}
+        {children}
+       
+        {/* End Main Content */}
+        {/* right section */}
+        <RightSection />
+        {/* end right section */}
+      </div>
+    </>
   )
 }
-
-export default Page
